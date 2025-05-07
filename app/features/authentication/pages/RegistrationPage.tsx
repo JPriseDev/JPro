@@ -1,46 +1,57 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate, Link } from 'react-router-dom'; // Link importieren
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+// Ggf. RegistrationForm importieren, falls vorhanden und benötigt
+// import RegistrationForm from '@/components/auth/RegistrationForm';
+
 
 /**
- * @page LoginPage
- * @description Seite für die Benutzeranmeldung.
- * Ermöglicht es Benutzern, sich mit ihrer E-Mail-Adresse und ihrem Passwort anzumelden.
- * Verwendet shadcn/ui Komponenten für das Formular-Layout.
- * @returns {JSX.Element} Die gerenderte Login-Seitenkomponente.
+ * @page RegistrationPage
+ * @description Seite für die Benutzerregistrierung.
+ * Ermöglicht es neuen Benutzern, ein Konto zu erstellen.
+ * @returns {JSX.Element} Die gerenderte Registrierungsseitenkomponente.
  */
-const LoginPage: React.FC = () => {
+const RegistrationPage: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>(''); // Hinzugefügt für Passwortbestätigung
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const { signInWithPassword } = useAuth();
+  const { signUpWithPassword } = useAuth(); // signUpWithPassword aus AuthContext verwenden
   const navigate = useNavigate();
 
   /**
    * @function handleSubmit
-   * @description Verarbeitet die Formularübermittlung für den Login.
+   * @description Verarbeitet die Formularübermittlung für die Registrierung.
    * @param {React.FormEvent<HTMLFormElement>} e - Das Formularereignis.
    * @returns {Promise<void>}
    */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setError(null);
+
+    if (password !== confirmPassword) {
+      setError('Die Passwörter stimmen nicht überein.');
+      return;
+    }
+
     setLoading(true);
     try {
-      const { error: signInError } = await signInWithPassword({ email, password });
-      if (signInError) {
-        setError(signInError.message);
-      } else {
-        navigate('/'); // Weiterleitung zum Dashboard nach erfolgreichem Login
+      const { error: signUpError, user } = await signUpWithPassword({ email, password });
+      if (signUpError) {
+        setError(signUpError.message);
+      } else if (user) {
+        // Ggf. eine Nachricht anzeigen oder direkt zum Login/Dashboard weiterleiten
+        // In Supabase muss ggf. die E-Mail-Bestätigung abgewartet werden.
+        navigate('/login'); // Beispiel: Weiterleitung zur Login-Seite nach erfolgreicher Registrierung
       }
     } catch (submissionError) {
       setError('Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.');
-      console.error('Login Submission Error:', submissionError);
+      console.error('Registration Submission Error:', submissionError);
     } finally {
       setLoading(false);
     }
@@ -50,9 +61,9 @@ const LoginPage: React.FC = () => {
     <div className="flex items-center justify-center min-h-screen bg-background">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle className="text-2xl">Anmelden</CardTitle>
+          <CardTitle className="text-2xl">Registrieren</CardTitle>
           <CardDescription>
-            Geben Sie Ihre E-Mail-Adresse und Ihr Passwort ein, um sich anzumelden.
+            Erstellen Sie ein neues Konto, um fortzufahren.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -74,24 +85,36 @@ const LoginPage: React.FC = () => {
               <Input
                 id="password"
                 type="password"
-                placeholder="********"
+                placeholder="Mindestens 6 Zeichen"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={loading}
               />
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="confirm-password">Passwort bestätigen</Label>
+              <Input
+                id="confirm-password"
+                type="password"
+                placeholder="Passwort erneut eingeben"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                disabled={loading}
+              />
+            </div>
             {error && <p className="text-sm text-destructive">{error}</p>}
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Anmelden...' : 'Anmelden'}
+              {loading ? 'Registrieren...' : 'Konto erstellen'}
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col items-center space-y-2">
           <p className="text-sm text-muted-foreground">
-            Noch kein Konto?{' '}
-            <Link to="/register" className="font-medium text-primary hover:underline">
-              Registrieren
+            Bereits ein Konto?{' '}
+            <Link to="/login" className="font-medium text-primary hover:underline">
+              Anmelden
             </Link>
           </p>
         </CardFooter>
@@ -100,4 +123,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default RegistrationPage;

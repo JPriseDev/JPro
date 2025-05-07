@@ -3,10 +3,11 @@ import { twMerge } from "tailwind-merge"
 
 /**
  * @function cn
- * @description Kombiniert mehrere KlassenNamen-Strings oder -Objekte und löst Konflikte mit Tailwind Merge.
- * Nützlich für das bedingte Anwenden von Tailwind CSS Klassen.
- * @param {...ClassValue[]} inputs - Eine Sequenz von Klassenwerten, die kombiniert werden sollen.
- * @returns {string} Ein String, der die zusammengeführten und deduplizierten Klassennamen enthält.
+ * @description Eine Hilfsfunktion zum bedingten Zusammenführen von Tailwind CSS-Klassen.
+ * Kombiniert `clsx` und `tailwind-merge` für eine robuste Klassenverwaltung.
+ * @param {...ClassValue[]} inputs - Eine Liste von Klassenwerten (Strings, Objekte, Arrays).
+ * @returns {string} Ein String mit den zusammengeführten und optimierten Klassennamen.
+ * @example cn("p-4", "font-bold", { "bg-red-500": hasError })
  */
 export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs))

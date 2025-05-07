@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import LoginPage from '@/features/authentication/pages/LoginPage';
-// import { Button } from "@/components/core/Button"; // Placeholder for shadcn/ui Button
+import RegistrationPage from '@/features/authentication/pages/RegistrationPage'; // Diese Zeile verursacht den Fehler
+import { Button } from "@/components/ui/button"; // shadcn/ui Button importieren
 
 /**
  * @interface ProtectedRouteProps
@@ -45,7 +46,7 @@ function AppContent(): JSX.Element {
 
   return (
     <div>
-      <nav style={{ marginBottom: '20px', borderBottom: '1px solid #ccc', paddingBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <nav style={{ marginBottom: '20px', borderBottom: '1px solid #ccc', paddingBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px' }}>
         <ul style={{ listStyleType: 'none', padding: 0, margin: 0, display: 'flex', gap: '15px' }}>
           <li>
             <Link to="/">Dashboard</Link>
@@ -60,35 +61,34 @@ function AppContent(): JSX.Element {
           )}
         </ul>
         {session && !loading && (
-          // Temporarily using HTML button, will be replaced with shadcn/ui Button
-          <button onClick={signOut} style={{ padding: '8px 12px', cursor: 'pointer' }}>
+          <Button onClick={signOut} variant="outline" size="sm">
             Abmelden
-          </button>
-          // <Button onClick={signOut} variant="outline" size="sm">
-          //   Abmelden
-          // </Button>
+          </Button>
         )}
       </nav>
 
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/projects"
-          element={
-            <ProtectedRoute>
-              <ProjectsPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <DashboardPage />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+      <div className="p-4"> {/* Container für den Seiteninhalt hinzugefügt */}
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegistrationPage />} /> {/* Route einkommentiert und ggf. Import hinzufügen */}
+          <Route
+            path="/projects"
+            element={
+              <ProtectedRoute>
+                <ProjectsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </div>
     </div>
   );
 }
