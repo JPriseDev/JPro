@@ -1,204 +1,67 @@
-# JPro – Responsive Projektmanagement-Anwendung
+# JPro - Projektmanagement Anwendung
 
-## Einleitung
+Willkommen bei JPro, einer responsiven Projektmanagement-Anwendung.
 
-**JPro** ist eine intuitive, webbasierte und responsive Anwendung zur effizienten Planung, Verfolgung und Verwaltung von Projekten. Sie wurde entwickelt, um die Zusammenarbeit zwischen internen Teams und externen Kunden zu verbessern, die Projekttransparenz zu erhöhen und Prozesse wie Zeiterfassung und Ressourcenplanung zu optimieren.
+## Projektübersicht
 
-## Zielgruppe
+"JPro" ist eine intuitive, webbasierte und responsive Projektmanagement-Anwendung, die darauf abzielt, Mitarbeitende der JPrise Unternehmensberatung GmbH und deren Kunden (Mitarbeitende von Instituten der Sparkassen Finanzgruppe) dabei zu unterstützen, ihre Projekte effizienter zu planen, zu verfolgen und abzuschließen.
 
-- **Interne Mitarbeitende**: Projektmanager:innen, Teammitglieder
-- **Externe Kunden**: Projektbeteiligte, Ansprechpartner:innen auf Kundenseite
-
-## Problemstellung
-
-- Ineffiziente Koordination
-- Mangelnde Transparenz
-- Umständliche Dokumentenverwaltung
-- Eingeschränkte mobile Nutzung
-- Sicherheits- und Datenschutzanforderungen (DSGVO, ISO 27001, DORA)
-- Fehlende Integration von Zeiterfassung & Ressourcenplanung
-
-## Lösung
-
-- Zentrale Projekt- und Aufgabenverwaltung
-- Rollenbasierter Kundenzugang
-- Integrierte Kommunikation & Dokumentation
-- Responsive Design & Dark Mode
-- Datenschutz & Compliance by Design
-- Intuitive Benutzerführung
-- Dashboards & Reporting
-- Zeiterfassung mit Kundenfreigabe
-- Ressourcenplanung
-
-## Kernfunktionen (MVP)
-
-- Benutzerverwaltung & Auth (Supabase)
-- Projektstruktur (Projekte, Teilprojekte, Arbeitspakete, Aktivitäten)
-- Aktivitätenmanagement (Status, Kommentare, Anhänge)
-- Zeiterfassung & Tätigkeitsnachweise mit Freigabe
-- Reporting-Dashboards
-- Responsive Design mit Dark Mode
+Weitere Details finden Sie im [Produktanforderungsdokument (PRD)](./docs/JPro_PRD_V1.md).
 
 ## Technologie-Stack
 
-- **Frontend**: TypeScript, React, Tailwind CSS, shadcn/ui  
-- **Backend**: Supabase (PostgreSQL, Auth, Edge Functions)  
-- **Build**: Vite  
-- **Tests**: Jest, React Testing Library, Cypress  
-- **CI/CD**: GitHub Actions  
-- **Versionierung**: Git + GitHub  
-- **Dokumentation**: JSDoc, Markdown
+- **Frontend**: TypeScript, React, Tailwind CSS, shadcn/ui
+- **Backend & Datenbank**: Supabase (PostgreSQL, Auth, Edge Functions)
+- **Build-Tool**: Vite
+- **Testing**: Jest, React Testing Library, Cypress
+- **Versionierung**: Git mit GitHub
+- **CI/CD**: GitHub Actions
+- **Code-Dokumentation**: JSDoc
 
-## Persönliche Regeln für die Trae-KI
+## Verzeichnisstruktur
 
-### Allgemein
+- `app/`: Enthält `.jsx`/`.tsx`-Komponenten und Anwendungslogik.
+- `docs/`: Beinhaltet Markdown-Dokumente für Nutzer:innen, Entwickler:innen und Auditor:innen.
+- `public/`: Statische Assets.
 
-- Deutschsprachige, sachliche Ausdrucksweise
-- Aktive Formulierungen
-- Automatische Ergänzung von Docstrings, Kommentaren, Markdown-Dokumentation
-- Immer vollständiger Code – keine Beispiele oder Codefragmente
+## Erste Schritte
 
-### Code-Stil
+1.  **Abhängigkeiten installieren:**
+    ```bash
+    npm install
+    # oder
+    yarn install
+    # oder
+    pnpm install
+    ```
 
-- camelCase (Variablen/Funktionen)
-- PascalCase (Komponenten/Klassen)
-- UPPER_SNAKE_CASE (Konstanten)
-- Einrückung: 2 Leerzeichen
-- `app/` = Komponenten, `docs/` = Doku für Entwickler:innen, Nutzer:innen, Auditor:innen
+2.  **Entwicklungsserver starten:**
+    ```bash
+    npm run dev
+    # oder
+    yarn dev
+    # oder
+    pnpm dev
+    ```
 
-### Dokumentation
+3.  **Build erstellen:**
+    ```bash
+    npm run build
+    ```
 
-- JSDoc-Dokumentation jeder Funktion
-- Markdown-Dokumentation aller Module, Prozesse, Seiten im `docs/`-Verzeichnis
+4.  **Tests ausführen:**
+    ```bash
+    npm run test
+    ```
 
-### Testing
+## Dokumentation
 
-- Unit-Tests für jede Kernfunktion
-- Jest & React Testing Library
-- Cypress für E2E
+Die Projektdokumentation wird fortlaufend im `docs/`-Verzeichnis aktualisiert.
 
-### Architektur
-
-- Modulare, wiederverwendbare Komponenten
-- Trennung von Logik (Hooks, Services) und UI
-
-### Sicherheit
-
-- Keine Secrets im Code
-- MFA und RBAC berücksichtigen
-- DSGVO, ISO 27001, DORA einhalten
-- Schutz vor XSS, CSRF, SQLi
-- Audit-Logging
-- Datenschutzstandards der Sparkassen-Finanzgruppe
-
-## Projektregeln für die Trae-KI
-
-### Allgemein
-
-- Alle Artefakte auf Deutsch dokumentiert
-- Aktive Sprache, vollständiger Code
-- Commit-Qualität: konform mit Style- und Sicherheitsvorgaben
-
-### Code-Stil
-
-- camelCase (Variablen/Funktionen)
-- PascalCase (Klassen/Komponenten)
-- UPPER_SNAKE_CASE (Konstanten)
-- Einrückung: 2 Leerzeichen
-- JSX/TSX im `app/`, Markdown im `docs/`
-
-### Architektur
-
-- Modularer Aufbau
-- Trennung von UI und Business-Logik
-- Supabase als Backend-as-a-Service
-
-### Dokumentation
-
-- JSDoc für Code
-- Strukturierte Markdown-Dokumentation im `docs/`
-
-### Testing
-
-- Unit-Tests mit Jest
-- Komponententests mit Testing Library
-- E2E mit Cypress
-
-### Sicherheit
-
-- Authentifizierung & Autorisierung (RBAC)
-- Datenschutz nach DSGVO, ISO 27001, DORA
-- Verschlüsselung & Schwachstellenvermeidung
-- Audit-Logging
-- Keine sensiblen Daten im Code
-
-### Design
-
-- Responsiv (Desktop, Tablet, Mobile)
-- Dark Mode
-- UX: Klarheit, Konsistenz, Feedback
-
-### Entwicklungsprozess
-
-- Git-Workflows: Feature-Branches, Pull Requests, Reviews
-- CI/CD mit GitHub Actions (Test, Build, Deploy)
-
-## Erste Schritte (Entwicklungsumgebung)
-
-### 1. Repository klonen
-
-```bash
-git clone [REPO_URL]
-cd [Projektverzeichnis]
-```
-
-### 2. Abhängigkeiten installieren
-
-```bash
-npm install
-# oder yarn install
-# oder pnpm install
-```
-
-### 3. Supabase konfigurieren
-
-`.env` im Projekt-Root anlegen:
-
-```env
-VITE_SUPABASE_URL=your_project_url
-VITE_SUPABASE_ANON_KEY=your_anon_key
-```
-
-### 4. Entwicklungsserver starten
-
-```bash
-npm run dev
-```
-
-→ Anwendung unter http://localhost:5173
-
-## Testing
-
-- Unit:  
-  `npm test`
-
-- E2E mit Cypress (separate Konfiguration erforderlich)
-
-## Mitwirken
-
-1. Forken
-2. Branch erstellen: `git checkout -b feature/IhrFeatureName`
-3. Änderungen implementieren & testen
-4. Commit: `git commit -m 'feat: ...'`
-5. Push: `git push origin ...`
-6. Pull Request auf GitHub stellen
+- [Benutzerhandbuch](./docs/user_guide/getting_started.md)
+- [Entwicklerhandbuch](./docs/developer_guide/setup.md)
+- [Architekturübersicht](./docs/architecture/overview.md)
 
 ## Lizenz
 
-**Proprietär** – © JPrise Unternehmensberatung GmbH  
-Nutzung, Weitergabe und Vervielfältigung nur gemäß interner oder vertraglicher Vereinbarungen
-
-## Hinweis
-
-Dieses Dokument basiert auf dem initialen Projektkonzept.  
-Weiterführende Inhalte befinden sich im `docs/`-Verzeichnis.
+Dieses Projekt ist proprietär.

@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Globale Stile können hier hinzugefügt werden */
+body {
+  font-family: 'Inter', sans-serif; /* Beispiel für eine Basisschriftart */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
